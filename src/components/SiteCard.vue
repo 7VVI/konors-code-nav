@@ -1,10 +1,25 @@
 <template>
-  <div class="site-card" @click="openSite">
+  <div class="site-card" @click="showDetail" @mousedown="() => console.log('mousedown')" @mouseup="() => console.log('mouseup')">
     <div class="card-header">
       <div class="site-icon">{{ site.icon }}</div>
       <div class="site-info">
         <h3 class="site-name">{{ site.name }}</h3>
         <p class="site-description">{{ site.description }}</p>
+        <!-- 星级评分 -->
+        <div class="rating-section">
+          <div class="stars">
+            <span 
+              v-for="star in 5" 
+              :key="star"
+              class="star"
+              :class="{ filled: star <= Math.floor(site.rating), half: star === Math.ceil(site.rating) && site.rating % 1 !== 0 }"
+            >
+              ★
+            </span>
+          </div>
+          <span class="rating-text">{{ site.rating }}</span>
+          <span class="reviews-text">({{ site.reviews }})</span>
+        </div>
       </div>
     </div>
     
@@ -17,10 +32,6 @@
         >
           {{ tag }}
         </span>
-      </div>
-      <div class="visit-button">
-        <span class="visit-text">访问</span>
-        <span class="visit-icon">→</span>
       </div>
     </div>
     
@@ -37,14 +48,28 @@ interface Site {
   url: string
   icon: string
   tags: string[]
+  rating: number
+  reviews: number
+  detailDescription: string
+  features: string[]
+  pros: string[]
+  cons: string[]
 }
 
-defineProps<{
+interface Props {
   site: Site
-}>()
+}
 
-const openSite = (site: Site) => {
-  window.open(site.url, '_blank')
+interface Emits {
+  (e: 'show-detail', site: Site): void
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
+
+const showDetail = () => {
+  console.log('SiteCard clicked:', props.site.name)
+  emit('show-detail', props.site)
 }
 </script>
 
@@ -58,10 +83,16 @@ const openSite = (site: Site) => {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid #4a5568;
   overflow: hidden;
-  height: 180px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  user-select: none;
+}
+
+.site-card:active {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .site-card:hover {
@@ -73,10 +104,6 @@ const openSite = (site: Site) => {
 
 .site-card:hover .card-overlay {
   opacity: 1;
-}
-
-.site-card:hover .visit-icon {
-  transform: translateX(4px);
 }
 
 .site-card:hover .site-icon {
@@ -124,12 +151,49 @@ const openSite = (site: Site) => {
 .site-description {
   font-size: 0.85rem;
   color: #a0aec0;
-  margin: 0;
+  margin: 0 0 8px 0;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.stars {
+  display: flex;
+  gap: 1px;
+}
+
+.star {
+  color: #4a5568;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.star.filled {
+  color: #ffd700;
+}
+
+.star.half {
+  color: #ffd700;
+}
+
+.rating-text {
+  color: #00d4aa;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.reviews-text {
+  color: #a0aec0;
+  font-size: 0.75rem;
 }
 
 .card-footer {
@@ -163,20 +227,7 @@ const openSite = (site: Site) => {
   border-color: rgba(0, 212, 170, 0.3);
 }
 
-.visit-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #00d4aa;
-  font-weight: 600;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
 
-.visit-icon {
-  transition: transform 0.3s ease;
-  font-weight: bold;
-}
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -205,10 +256,6 @@ const openSite = (site: Site) => {
   .tag {
     font-size: 0.7rem;
     padding: 3px 6px;
-  }
-  
-  .visit-button {
-    font-size: 0.85rem;
   }
 }
 
