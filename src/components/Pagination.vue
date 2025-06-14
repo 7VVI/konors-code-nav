@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination-wrapper" v-if="totalPages > 1">
+  <div class="pagination-wrapper" v-if="totalPages >= 1">
     <div class="pagination-controls">
       <!-- 左箭头 -->
       <button 
