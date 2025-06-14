@@ -16,11 +16,27 @@
 </template>
 
 <script setup lang="ts">
+interface Site {
+  id: string
+  name: string
+  url: string
+  description: string
+  tags: string[]
+  category?: string
+  categoryId?: string
+  rating?: number
+  reviews?: number
+  detailDescription?: string
+  features?: string[]
+  pros?: string[]
+  cons?: string[]
+}
+
 interface Category {
   id: string
   name: string
   icon: string
-  sites: any[]
+  sites: Site[]
 }
 
 interface Props {

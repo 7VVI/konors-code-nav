@@ -1,5 +1,5 @@
 <template>
-  <div class="site-card" @click="showDetail" @mousedown="() => console.log('mousedown')" @mouseup="() => console.log('mouseup')">
+  <div class="site-card" @click="showDetail">
     <div class="card-header">
       <div class="site-icon">{{ site.icon }}</div>
       <div class="site-info">
@@ -68,7 +68,6 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const showDetail = () => {
-  console.log('SiteCard clicked:', props.site.name)
   emit('show-detail', props.site)
 }
 </script>

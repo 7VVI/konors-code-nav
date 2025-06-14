@@ -65,7 +65,7 @@ interface Category {
   id: string
   name: string
   icon: string
-  sites: any[]
+  sites: Site[]
 }
 
 interface Site {
@@ -110,10 +110,8 @@ const handlePageChange = (page: number) => {
 }
 
 const handleShowDetail = (site: Site) => {
-  console.log('handleShowDetail called:', site.name)
   selectedSite.value = site
   showDetailModal.value = true
-  console.log('Modal state:', showDetailModal.value, selectedSite.value)
 }
 
 const handleCloseDetail = () => {

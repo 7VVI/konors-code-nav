@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { siteCategories, searchSites, getAllSites } from '../data/sites.js'
+import { siteCategories, searchSites, getAllSites } from '@/data/sites.js'
 import Header from './Header.vue'
 import CategoryNav from './CategoryNav.vue'
 import MainContent from './MainContent.vue'
@@ -65,8 +65,8 @@ const allDisplaySites = computed(() => {
     return getAllSites()
   }
   
-  const category = categories.value.find(cat => cat.id === activeCategory.value)
-  return category ? category.sites.map(site => ({
+  const category = categories.value.find((cat: { id: string }) => cat.id === activeCategory.value)
+  return category ? category.sites.map((site: any) => ({
     ...site,
     category: category.name,
     categoryId: category.id
