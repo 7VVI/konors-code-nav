@@ -197,12 +197,12 @@ onUnmounted(() => {
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
+  max-width: 1200px;
 }
 
 /* 头部样式 */
 .header {
   background: #1a1d29;
-  border-bottom: 1px solid #2d3748;
   padding: 20px 0;
 }
 
@@ -291,7 +291,6 @@ onUnmounted(() => {
 .category-nav {
   background: #1a1d29;
   padding: 20px 0;
-  border-bottom: 1px solid #2d3748;
 }
 
 .category-tabs {
@@ -357,11 +356,11 @@ onUnmounted(() => {
 /* 网站卡片网格 */
 .sites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   margin-bottom: 40px;
   min-height: 400px;
-  justify-content: center;
+  justify-content: start;
 }
 
 /* 无结果样式 */
@@ -420,9 +419,9 @@ onUnmounted(() => {
   }
   
   .sites-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 16px;
-    justify-content: center;
+    justify-content: start;
   }
   
   .results-title {
