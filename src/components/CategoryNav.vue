@@ -45,12 +45,12 @@ const handleCategoryClick = (categoryId: string) => {
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 /* 分类导航样式 */
 .category-nav {
-  background: #1a1d29;
+  background: var(--bg-primary);
   padding: 20px 0;
 }
 
@@ -68,7 +68,7 @@ const handleCategoryClick = (categoryId: string) => {
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: #a0aec0;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
@@ -76,12 +76,12 @@ const handleCategoryClick = (categoryId: string) => {
 }
 
 .category-tab:hover {
-  background: #2d3748;
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .category-tab.active {
-  background: #00d4aa;
+  background: var(--accent-color);
   color: white;
 }
 

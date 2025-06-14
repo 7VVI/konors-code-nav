@@ -3,8 +3,10 @@
     <!-- 头部组件 -->
     <Header 
       :search-keyword="searchKeyword"
+      :is-dark="isDark"
       @update:search-keyword="searchKeyword = $event"
       @search="handleSearch"
+      @toggle-theme="toggleTheme"
     />
 
     <!-- 分类导航组件 -->
@@ -39,6 +41,7 @@ const categories = ref(siteCategories)
 const activeCategory = ref('all')
 const searchKeyword = ref('')
 const currentPage = ref(1)
+const isDark = ref(true) // 默认暗色主题
 // 根据屏幕尺寸动态调整每页显示数量
 const pageSize = computed(() => {
   if (window.innerWidth <= 480) {
@@ -100,6 +103,14 @@ const handlePageChange = (page: number) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+  // 保存主题设置到本地存储
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  // 更新body的class来应用全局主题
+  document.body.className = isDark.value ? 'dark-theme' : 'light-theme'
+}
+
 // 监听窗口大小变化，重新计算分页
 const handleResize = () => {
   // 当页面大小改变时，重置到第一页
@@ -115,6 +126,13 @@ onMounted(() => {
     sites: []
   })
   
+  // 初始化主题设置
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme) {
+    isDark.value = savedTheme === 'dark'
+  }
+  document.body.className = isDark.value ? 'dark-theme' : 'light-theme'
+  
   window.addEventListener('resize', handleResize)
 })
 
@@ -126,7 +144,7 @@ onUnmounted(() => {
 <style scoped>
 .navigation {
   min-height: 100vh;
-  background: #1a1d29;
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 </style>

@@ -76,12 +76,12 @@ const showDetail = () => {
 <style scoped>
 .site-card {
   position: relative;
-  background: #2d3748;
+  background: var(--bg-secondary);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #4a5568;
+  border: 1px solid var(--border-color);
   overflow: hidden;
   height: 200px;
   display: flex;
@@ -98,8 +98,8 @@ const showDetail = () => {
 .site-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-  background: #374151;
-  border-color: #00d4aa;
+  background: var(--bg-tertiary);
+  border-color: var(--accent-color);
 }
 
 .site-card:hover .card-overlay {
@@ -143,14 +143,14 @@ const showDetail = () => {
 .site-name {
   font-size: 1.1rem;
   font-weight: 600;
-  color: white;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
   line-height: 1.3;
 }
 
 .site-description {
   font-size: 0.85rem;
-  color: #a0aec0;
+  color: var(--text-secondary);
   margin: 0 0 8px 0;
   line-height: 1.5;
   display: -webkit-box;
@@ -172,7 +172,7 @@ const showDetail = () => {
 }
 
 .star {
-  color: #4a5568;
+  color: var(--border-color);
   font-size: 0.9rem;
   transition: color 0.2s ease;
 }
@@ -186,13 +186,13 @@ const showDetail = () => {
 }
 
 .rating-text {
-  color: #00d4aa;
+  color: var(--accent-color);
   font-size: 0.8rem;
   font-weight: 600;
 }
 
 .reviews-text {
-  color: #a0aec0;
+  color: var(--text-secondary);
   font-size: 0.75rem;
 }
 
@@ -214,7 +214,7 @@ const showDetail = () => {
   display: inline-block;
   padding: 4px 10px;
   background: rgba(0, 212, 170, 0.1);
-  color: #00d4aa;
+  color: var(--accent-color);
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 500;

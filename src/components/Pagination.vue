@@ -194,8 +194,8 @@ const handleJump = () => {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -205,7 +205,7 @@ const handleJump = () => {
 }
 
 .arrow-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--bg-tertiary);
   transform: scale(1.1);
 }
 
@@ -220,8 +220,8 @@ const handleJump = () => {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -232,12 +232,12 @@ const handleJump = () => {
 }
 
 .page-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--bg-tertiary);
   transform: scale(1.1);
 }
 
 .page-btn.active {
-  background: #00d4aa;
+  background: var(--accent-color);
   color: white;
   font-weight: 600;
 }
@@ -245,7 +245,7 @@ const handleJump = () => {
 
 
 .jump-label {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 500;
   margin-left: 16px;
@@ -256,10 +256,10 @@ const handleJump = () => {
   height: 32px;
   padding: 0 8px;
   margin-left: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 12px;
   text-align: center;
   outline: none;
@@ -267,13 +267,13 @@ const handleJump = () => {
 }
 
 .jump-input:focus {
-  border-color: #00d4aa;
-  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent-color);
+  background: var(--bg-tertiary);
   box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.2);
 }
 
 .jump-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
   font-size: 12px;
 }
 
@@ -281,7 +281,7 @@ const handleJump = () => {
   padding: 6px 12px;
   border: none;
   border-radius: 16px;
-  background: #00d4aa;
+  background: var(--accent-color);
   color: white;
   font-size: 12px;
   font-weight: 600;

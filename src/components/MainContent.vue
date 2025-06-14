@@ -127,14 +127,14 @@ const handleCloseDetail = () => {
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 /* 主要内容样式 */
 .main-content {
   padding: 30px 0;
   flex: 1;
-  background: #1a1d29;
+  background: var(--bg-primary);
 }
 
 .results-header {
@@ -142,7 +142,7 @@ const handleCloseDetail = () => {
 }
 
 .results-title {
-  color: white;
+  color: var(--text-primary);
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
@@ -158,7 +158,7 @@ const handleCloseDetail = () => {
 /* 网站卡片网格 */
 .sites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
   gap: 20px;
   margin-bottom: 40px;
   min-height: 400px;
@@ -169,7 +169,7 @@ const handleCloseDetail = () => {
 .no-results {
   text-align: center;
   padding: 60px 20px;
-  color: #a0aec0;
+  color: var(--text-secondary);
 }
 
 .no-results-icon {

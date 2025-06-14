@@ -3,7 +3,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <h1>CodeNav</h1>
+          <h1>Konors-code-nav</h1>
         </div>
         <div class="search-box">
           <input 
@@ -16,6 +16,9 @@
           <div class="search-icon">🔍</div>
         </div>
         <div class="user-area">
+          <button class="theme-toggle" @click="toggleTheme" :title="isDark ? '切换到亮色主题' : '切换到暗色主题'">
+            <span class="theme-icon">{{ isDark ? '☀️' : '🌙' }}</span>
+          </button>
           <div class="user-avatar">
             <div class="avatar-placeholder">👤</div>
           </div>
@@ -28,11 +31,13 @@
 <script setup lang="ts">
 interface Props {
   searchKeyword: string
+  isDark: boolean
 }
 
 interface Emits {
   (e: 'update:searchKeyword', value: string): void
   (e: 'search'): void
+  (e: 'toggle-theme'): void
 }
 
 defineProps<Props>()
@@ -43,6 +48,10 @@ const handleSearchInput = (event: Event) => {
   emit('update:searchKeyword', target.value)
   emit('search')
 }
+
+const toggleTheme = () => {
+  emit('toggle-theme')
+}
 </script>
 
 <style scoped>
@@ -50,12 +59,12 @@ const handleSearchInput = (event: Event) => {
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 /* 头部样式 */
 .header {
-  background: #1a1d29;
+  background: var(--bg-primary);
   padding: 20px 0;
 }
 
@@ -87,22 +96,22 @@ const handleSearchInput = (event: Event) => {
 .search-input {
   width: 100%;
   padding: 12px 45px 12px 20px;
-  border: 1px solid #2d3748;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: #2d3748;
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font-size: 14px;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .search-input::placeholder {
-  color: #a0aec0;
+  color: var(--text-secondary);
 }
 
 .search-input:focus {
-  border-color: #00d4aa;
-  background: #374151;
+  border-color: var(--accent-color);
+  background: var(--bg-tertiary);
 }
 
 .search-icon {
@@ -116,13 +125,37 @@ const handleSearchInput = (event: Event) => {
 .user-area {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-tertiary);
+  transform: scale(1.05);
+}
+
+.theme-icon {
+  font-size: 16px;
 }
 
 .user-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #00d4aa;
+  background: var(--accent-color);
   display: flex;
   align-items: center;
   justify-content: center;

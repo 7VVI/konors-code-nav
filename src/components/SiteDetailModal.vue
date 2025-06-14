@@ -153,7 +153,7 @@ const visitSite = () => {
 }
 
 .modal-content {
-  background: #2d3748;
+  background: var(--bg-secondary);
   border-radius: 16px;
   width: 100%;
   max-width: 800px;
@@ -161,12 +161,12 @@ const visitSite = () => {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid #4a5568;
+  border: 1px solid var(--border-color);
 }
 
 .modal-header {
   padding: 24px;
-  border-bottom: 1px solid #4a5568;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -188,7 +188,7 @@ const visitSite = () => {
 }
 
 .site-name {
-  color: white;
+  color: var(--text-primary);
   font-size: 1.8rem;
   font-weight: 600;
   margin: 0 0 12px 0;
@@ -206,7 +206,7 @@ const visitSite = () => {
 }
 
 .star {
-  color: #4a5568;
+  color: var(--border-color);
   font-size: 1.2rem;
   transition: color 0.2s ease;
 }
@@ -220,14 +220,14 @@ const visitSite = () => {
 }
 
 .rating-text {
-  color: #a0aec0;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
 .close-btn {
   background: none;
   border: none;
-  color: #a0aec0;
+  color: var(--text-secondary);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 8px;
@@ -236,8 +236,8 @@ const visitSite = () => {
 }
 
 .close-btn:hover {
-  background: #4a5568;
-  color: white;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .modal-body {
@@ -255,7 +255,7 @@ const visitSite = () => {
 }
 
 .modal-body h3 {
-  color: white;
+  color: var(--text-primary);
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0 0 16px 0;
@@ -265,7 +265,7 @@ const visitSite = () => {
 }
 
 .detail-description {
-  color: #a0aec0;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
 }
@@ -283,7 +283,7 @@ const visitSite = () => {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #a0aec0;
+  color: var(--text-secondary);
   padding: 8px 12px;
   background: rgba(0, 212, 170, 0.1);
   border-radius: 8px;
@@ -291,7 +291,7 @@ const visitSite = () => {
 }
 
 .feature-icon {
-  color: #00d4aa;
+  color: var(--accent-color);
   font-weight: bold;
 }
 
@@ -313,9 +313,9 @@ const visitSite = () => {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #a0aec0;
+  color: var(--text-secondary);
   padding: 8px 0;
-  border-bottom: 1px solid #4a5568;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .pro-item:last-child,
@@ -340,7 +340,7 @@ const visitSite = () => {
 .tag {
   padding: 6px 12px;
   background: rgba(0, 212, 170, 0.1);
-  color: #00d4aa;
+  color: var(--accent-color);
   border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -350,21 +350,21 @@ const visitSite = () => {
 .comments-placeholder {
   text-align: center;
   padding: 40px 20px;
-  color: #a0aec0;
-  background: #374151;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
   border-radius: 8px;
-  border: 2px dashed #4a5568;
+  border: 2px dashed var(--border-color);
 }
 
 .modal-footer {
   padding: 24px;
-  border-top: 1px solid #4a5568;
+  border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
 }
 
 .visit-btn {
-  background: #00d4aa;
+  background: var(--accent-color);
   color: white;
   border: none;
   padding: 12px 24px;
