@@ -93,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { siteCategories, searchSites, getAllSites } from '../data/sites.js'
 import SiteCard from './SiteCard.vue'
 import Pagination from './Pagination.vue'
@@ -102,7 +102,16 @@ const categories = ref(siteCategories)
 const activeCategory = ref('all')
 const searchKeyword = ref('')
 const currentPage = ref(1)
-const pageSize = ref(16) // 每页显示16个网站
+// 根据屏幕尺寸动态调整每页显示数量
+const pageSize = computed(() => {
+  if (window.innerWidth <= 480) {
+    return 6 // 小屏幕显示6个
+  } else if (window.innerWidth <= 768) {
+    return 8 // 中等屏幕显示8个
+  } else {
+    return 12 // 大屏幕显示12个
+  }
+})
 
 const isSearching = computed(() => searchKeyword.value.trim().length > 0)
 
@@ -154,6 +163,12 @@ const handlePageChange = (page: number) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+// 监听窗口大小变化，重新计算分页
+const handleResize = () => {
+  // 当页面大小改变时，重置到第一页
+  currentPage.value = 1
+}
+
 onMounted(() => {
   // 添加全部分类选项
   categories.value.unshift({
@@ -162,6 +177,12 @@ onMounted(() => {
     icon: '🌟',
     sites: []
   })
+  
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
 })
 </script>
 
@@ -173,9 +194,9 @@ onMounted(() => {
 }
 
 .container {
-  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
 }
 
 /* 头部样式 */
@@ -336,10 +357,11 @@ onMounted(() => {
 /* 网站卡片网格 */
 .sites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
   gap: 20px;
   margin-bottom: 40px;
   min-height: 400px;
+  justify-content: center;
 }
 
 /* 无结果样式 */
@@ -398,8 +420,9 @@ onMounted(() => {
   }
   
   .sites-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 16px;
+    justify-content: center;
   }
   
   .results-title {

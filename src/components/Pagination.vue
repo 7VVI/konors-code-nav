@@ -1,75 +1,53 @@
 <template>
   <div class="pagination-wrapper" v-if="totalPages > 1">
-    <div class="pagination-info">
-      <span class="total-info">共 {{ total }} 个网站</span>
-      <span class="page-info">第 {{ currentPage }} / {{ totalPages }} 页</span>
-    </div>
-    
     <div class="pagination-controls">
-      <!-- 上一页按钮 -->
+      <!-- 左箭头 -->
       <button 
-        class="pagination-btn prev-btn"
+        class="arrow-btn"
         :disabled="currentPage === 1"
         @click="goToPage(currentPage - 1)"
       >
-        <span class="btn-icon">←</span>
-        <span class="btn-text">上一页</span>
+        ←
       </button>
       
       <!-- 页码按钮 -->
-      <div class="page-numbers">
-        <!-- 第一页 -->
-        <button 
-          v-if="showFirstPage"
-          class="page-btn"
-          :class="{ active: currentPage === 1 }"
-          @click="goToPage(1)"
-        >
-          1
-        </button>
-        
-        <!-- 左侧省略号 -->
-        <span v-if="showLeftEllipsis" class="ellipsis">...</span>
-        
-        <!-- 中间页码 -->
-        <button 
-          v-for="page in visiblePages"
-          :key="page"
-          class="page-btn"
-          :class="{ active: currentPage === page }"
-          @click="goToPage(page)"
-        >
-          {{ page }}
-        </button>
-        
-        <!-- 右侧省略号 -->
-        <span v-if="showRightEllipsis" class="ellipsis">...</span>
-        
-        <!-- 最后一页 -->
-        <button 
-          v-if="showLastPage"
-          class="page-btn"
-          :class="{ active: currentPage === totalPages }"
-          @click="goToPage(totalPages)"
-        >
-          {{ totalPages }}
-        </button>
-      </div>
-      
-      <!-- 下一页按钮 -->
       <button 
-        class="pagination-btn next-btn"
+        class="page-btn"
+        :class="{ active: currentPage === 1 }"
+        @click="goToPage(1)"
+      >
+        1
+      </button>
+      
+      <button 
+        class="page-btn"
+        :class="{ active: currentPage === 2 }"
+        @click="goToPage(2)"
+        v-if="totalPages >= 2"
+      >
+        2
+      </button>
+      
+      <button 
+        class="page-btn"
+        :class="{ active: currentPage === 3 }"
+        @click="goToPage(3)"
+        v-if="totalPages >= 3"
+      >
+        3
+      </button>
+      
+      <!-- 右箭头 -->
+      <button 
+        class="arrow-btn"
         :disabled="currentPage === totalPages"
         @click="goToPage(currentPage + 1)"
       >
-        <span class="btn-text">下一页</span>
-        <span class="btn-icon">→</span>
+        →
       </button>
-    </div>
-    
-    <!-- 快速跳转 -->
-    <div class="quick-jump">
-      <span>跳转到</span>
+      
+      <!-- 跳转 -->
+      <span class="jump-label">跳页</span>
       <input 
         v-model="jumpPage"
         type="number"
@@ -77,15 +55,15 @@
         :max="totalPages"
         class="jump-input"
         @keyup.enter="handleJump"
+        placeholder="页码"
       />
-      <span>页</span>
-      <button class="jump-btn" @click="handleJump">确定</button>
+      <button class="go-btn" @click="handleJump">Go</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 
 interface Props {
   total: number
@@ -184,95 +162,66 @@ const goToPage = (page: number) => {
 
 // 处理快速跳转
 const handleJump = () => {
-  const page = Number(jumpPage.value)
-  if (page >= 1 && page <= totalPages.value) {
-    goToPage(page)
+  const pageNum = Number(jumpPage.value)
+  if (pageNum >= 1 && pageNum <= totalPages.value) {
+    goToPage(pageNum)
     jumpPage.value = ''
+  } else if (jumpPage.value !== '') {
+    alert('页码超出范围！')
   }
 }
 
-// 监听当前页变化，清空跳转输入
-watch(() => props.currentPage, () => {
-  jumpPage.value = ''
-})
+
 </script>
 
 <style scoped>
 .pagination-wrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
-  padding: 30px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  margin-top: 40px;
-}
-
-.pagination-info {
-  display: flex;
-  gap: 20px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-  font-weight: 500;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .pagination-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 8px;
 }
 
-.pagination-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
+.arrow-btn {
+  width: 32px;
+  height: 32px;
   border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 80px;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.pagination-btn:hover:not(:disabled) {
-  background: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.arrow-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
-.pagination-btn:disabled {
-  opacity: 0.5;
+.arrow-btn:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
   transform: none;
 }
 
-.btn-icon {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.page-numbers {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
 .page-btn {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.7);
-  color: #333;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -283,132 +232,127 @@ watch(() => props.currentPage, () => {
 }
 
 .page-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 .page-btn.active {
-  background: white;
-  color: #667eea;
+  background: #00d4aa;
+  color: white;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-.ellipsis {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: bold;
-  padding: 0 8px;
-  user-select: none;
-}
 
-.quick-jump {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.9);
+
+.jump-label {
+  color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
+  font-weight: 500;
+  margin-left: 16px;
 }
 
 .jump-input {
   width: 60px;
-  padding: 6px 8px;
+  height: 32px;
+  padding: 0 8px;
+  margin-left: 8px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  font-size: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 12px;
   text-align: center;
   outline: none;
-}
-
-.jump-input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
-}
-
-.jump-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  font-size: 12px;
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.jump-btn:hover {
-  background: white;
+.jump-input:focus {
+  border-color: #00d4aa;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.2);
+}
+
+.jump-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+.go-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 16px;
+  background: #00d4aa;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 8px;
+}
+
+.go-btn:hover {
+  background: #00c49a;
   transform: translateY(-1px);
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .pagination-wrapper {
-    gap: 15px;
-    padding: 20px 15px;
-  }
-  
-  .pagination-info {
-    flex-direction: column;
-    gap: 5px;
-    text-align: center;
-    font-size: 13px;
-  }
-  
   .pagination-controls {
-    gap: 8px;
+    gap: 6px;
   }
   
-  .pagination-btn {
-    padding: 8px 12px;
-    font-size: 13px;
-    min-width: 70px;
+  .arrow-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
   }
   
   .page-btn {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     font-size: 13px;
   }
   
-  .quick-jump {
+  .jump-label {
     font-size: 13px;
-    gap: 6px;
+    margin-left: 12px;
   }
   
   .jump-input {
     width: 50px;
-    padding: 4px 6px;
+    height: 28px;
+    font-size: 11px;
+    margin-left: 6px;
+  }
+  
+  .go-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    margin-left: 6px;
   }
 }
 
 @media (max-width: 480px) {
-  .pagination-controls {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .page-numbers {
-    order: 1;
-  }
-  
-  .prev-btn {
-    order: 0;
-  }
-  
-  .next-btn {
-    order: 2;
-  }
-  
-  .btn-text {
+  .jump-label,
+  .jump-input,
+  .go-btn {
     display: none;
   }
   
-  .pagination-btn {
-    min-width: 40px;
-    padding: 8px;
+  .pagination-controls {
+    gap: 4px;
+  }
+  
+  .arrow-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .page-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
   }
 }
 </style>
